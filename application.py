@@ -1,14 +1,14 @@
 from click import password_option
 from flask import Flask, render_template, request, redirect, url_for, flash
 from flask_login import login_required, logout_user, LoginManager, login_user, UserMixin, current_user
-from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.utils import secure_filename
 from sqlalchemy import except_all, false
 from config import Config
 from forms import LoginForm, userRegistration
 from datetime import date
-from datetime import datetime
+from datetime import datetime 
+from flask_sqlalchemy import SQLAlchemy
 import json
 
 #-------------------------------------

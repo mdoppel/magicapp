@@ -1,0 +1,97 @@
+{%extends 'base.html'%}
+
+{% block content%}
+<div class="container">
+    <div class="row">
+        <div class="col order-1">
+            <form class="mb-3" action="/add" method="post">
+                <label class="form-label">Set</label>
+                <select class="form-select form-select-sm" name="set" placeholder="Choose Set" required>
+                    <option value={{last_name.set}} selected>{{ last_name.set }}</option>
+                    {% for item in setcode %}
+                    <option>{{item}}</option>
+                    {% endfor %}
+                </select>   
+                <br/>
+                <label class="form-label">Card Number</label>
+                <input type="text" name="number" class="form-control" autofocus="autofocus" placeholder="Enter number" required>
+                <div class="fst-italic fs-6">For foil, put "f" after the number</div>
+            <br><br>
+            <button class="btn btn-primary mb-3" type="submit">Add</button>
+            </form>
+        </div>        
+            <div class="col order-2">
+                <br>
+                <div class="card mb-2">
+                    <div class="content">
+                        <div class="text-center card-title fw-bold border-bottom bg-success p-2 text-white bg-opacity-75">Retail Total:</div>
+                        <div class="text-center description">
+                            ${{totalretailprice}}
+                        </div>
+                    </div>
+                </div>
+                <div class="card mb-2">
+                    <div class="content">
+                        <div class="text-center card-title fw-bold border-bottom bg-success p-2 text-white bg-opacity-75">Buylist Total:</div>
+                        <div class="text-center description">
+                            ${{totalbuyprice}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col order-3">
+                <br>
+                <div class="card mb-2">
+                    <div class="content">
+                        <div class="text-center card-title fw-bold border-bottom bg-success p-2 text-white bg-opacity-75">Total Cards:</div>
+                        <div class="text-center description">
+                            {{countofcards}}
+                        </div>
+                    </div>
+                </div>
+                <div class="card mb-2">
+                    <div class="content">
+                        <div class="text-center card-title fw-bold border-bottom bg-success p-2 text-white bg-opacity-75">Top Card:</div>
+                        <div class="text-center description">
+                            ${{maxprice}}
+                        </div>
+                    </div>
+                </div>
+                <div class="card mb-2">
+                    <div class="content">
+                        <div class="card-title fw-bold border-bottom bg-success p-2 text-white bg-opacity-75">Sets:</div>
+                        {% for k in unique_set %}
+                        <div class="description">
+                            {% if k == 1 %}
+                                {{k}} - {{unique_set[k]}} Card
+                            {%else%}
+                                {{k}} - {{unique_set[k]}} Cards
+                            {%endif%}
+                        </div>
+                        {%endfor%}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div>
+    <hr>
+    {% for card in card_list|reverse %}
+        {% if card.name_id == current_user.id%}
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-sm-9">{{card.set}} ----- {{card.number}} ----- {{card.cardName}} ----- {{card.foil}} ----- {{card.cardRarity}} ----- Retail - {{card.CKretailfoil}} ----- Buylist - {{card.CKbuylistfoil}}</div>
+                <div class="col align-self-end"><a class="btn btn-primary" href="/delete/{{ card.id }}">Delete</a></div>
+                <hr style="margin-top:10px;"">
+            </div>
+        </div>
+        {%endif%}
+    {% endfor %}
+</div>
+<div>
+
+
+</div>
+
+{%endblock%}

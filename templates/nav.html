@@ -1,0 +1,16 @@
+<div class="container">
+    <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4">
+      {% if current_user.is_authenticated %}
+      <div class="row left"><strong>Active User: {{current_user.name}}</strong></div>
+      <div class="col-md-3 text-end">
+        <input type="button" class="row btn btn-outline-primary me-2" value="Portfolio" onclick="window.location.href='{{ url_for('portfolio') }}';">
+        <input type="button" class="row btn btn-primary" value="Logout" onclick="window.location.href='{{ url_for('logout') }}';">
+      </div>
+      {% else %}
+      <div class="col-md-3 text-end">
+        <input type="button" class="row btn btn-outline-primary me-2" value="Login" onclick="window.location.href='{{ url_for('login') }}';">
+        <input type="button" class="row btn btn-primary" value="Signup" onclick="window.location.href='{{ url_for('signup') }}';">
+      </div>
+      {% endif %}
+    </header>
+  </div>

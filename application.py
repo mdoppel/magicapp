@@ -17,7 +17,7 @@ import json
 with open('AllPrintings.json', encoding='utf-8') as json_file:
     allprintresults = json.load(json_file)
 
-with open('AllPrices.json') as json_file:
+with open('AllPrices.json', encoding='utf-8') as json_file:
     allpriceresults = json.load(json_file)    
 
 #-------------------------------------

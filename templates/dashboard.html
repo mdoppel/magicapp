@@ -75,6 +75,37 @@
         </div>
     </div>
 </div>
+<div class="container">
+    <canvas id="totalValue" height="20vh" width="70vw"></canvas>
+</div>
+<script>
+    var ctx = document.getElementById('totalValue').getContext('2d');
+    var myChart = new Chart(ctx, {
+        type:'line',
+        data: {
+            labels: [{% for item in cardDates %}"{{item}}",{%endfor%}],
+            datasets: [{
+                label: '',
+                data: [{%for item in cardvalue%} {{item}},{%endfor%}],
+                borderWidth: 2,
+                tension:0.1,
+                borderColor: 'rgb(83, 165, 127)',
+                backgroundColor: 'rgb(83, 165, 127)'
+            }]    
+        },
+        options: {
+            maintainAspectratio: true,
+            scales: {
+              yAxes: [{
+                ticks: {
+                  beginAtZero: true,
+                  stepSize: 1
+                }
+              }]
+            }
+        }
+    });                        
+</script>
 <div>
     <hr>
     {% for card in card_list|reverse %}

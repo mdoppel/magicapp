@@ -1,4 +1,4 @@
-from FLASKAPP.application import application
+from application import application, db
 
 if __name__ == "__main__":
     db.create_all()

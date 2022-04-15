@@ -150,6 +150,8 @@ def dashboard():
         totalretailprice = "0"
         maxprice = "0"
         countofcards = 0
+        cardDates=''
+        cardvalue=''
         unique_set = ""
     else:
         maxid= current_user_cards[-1]
@@ -180,6 +182,29 @@ def dashboard():
             countcards.insert(0,i)
         countofcards=len(countcards)
 
+        dates=[]
+        priceDates={}
+        cardvalue=[]
+        cardDates=[]
+        foilUUID = []
+        nonFoilUUID = []
+        for price in current_user_cards:
+            if price.foil == "Foil":
+                dates.append(allpriceresults['data'][price.UUID]['paper']['cardkingdom']['retail']['foil'])
+            else:
+                dates.append(allpriceresults['data'][price.UUID]['paper']['cardkingdom']['retail']['normal'])
+    
+        for k in dates:
+            for k, v in k.items():
+                if k in priceDates:
+                    priceDates[k].append(v)
+                else:
+                    priceDates[k]=[v]
+        for k, v in priceDates.items():
+            cardDates.append(k)
+            total = sum(v)
+            cardvalue.append(total)
+
         unique_set={}
         for object in current_user_cards:
             if object.set in unique_set:
@@ -187,7 +212,7 @@ def dashboard():
             else:
                 unique_set[object.set] = 1
     return render_template("dashboard.html", card_list=card_list, unique_set=unique_set, last_name=maxid, set_list=set_list, totalbuyprice=totalbuyprice, 
-                                        totalretailprice = totalretailprice, maxprice=maxprice, countofcards=countofcards)
+                                        totalretailprice = totalretailprice, maxprice=maxprice, countofcards=countofcards, cardvalue = cardvalue, cardDates = cardDates)
 
 
 #Add Card Route
@@ -257,8 +282,6 @@ def delete(card_id):
     db.session.delete(carddel)
     db.session.commit()
     return redirect(url_for("dashboard"))
-
-
 
 
 #404 Route
